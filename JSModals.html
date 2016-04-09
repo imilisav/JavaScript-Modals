@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JS Modals</title>
+    <style>
+      html {
+        height: 100%;
+        width: 100%;
+      }
+
+      body {
+        margin: 0;
+        overflow-x: hidden;
+        background-image: url(sunset.jpg);
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100%;
+        width: 100%;
+      }
+
+      .fonts {
+        text-align: center;
+        color: white;
+        font-family: Helvetica, sans-serif;
+        font-weight: lighter;
+      }
+
+      .flexwrap-col {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+      }
+
+      .flexwrap-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+      }
+
+      h1 {
+        font-size: 2.5em;
+      }
+
+      h4 {
+        font-size: 1.25em;
+        font-family: Georgia,serif;
+        margin: 0 0 auto;
+      }
+
+      p, span {
+        font-family: helvetica, sans-serif;
+        font-weight: lighter;
+      }
+
+      form input, form p {
+        margin: 0 0 0 10px;
+      }
+
+      form p {
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      button {
+        height: 50px;
+        width: 200px;
+
+        border-radius: 8px;
+        border: white solid 4px;
+
+        background-color: rgba(0,0,0,0);
+        color: white;
+
+        font-size: 1.3em;
+        font-family: Helvetica,sans-serif;
+
+        margin: 0 0 0 30px;
+      }
+
+      form button {
+        background-color: #ce4500;
+        margin: 0 0 0 10px;
+        color: white;
+        border: none;
+        height: 30px;
+        width: 100px;
+      }
+
+      form button:hover {
+        background-color: #ce4500;
+        color: white;
+      }
+
+      button:hover {
+        color: #ce4500;
+        background-color: white;
+      }
+
+      .modal {
+          display: none; /* Hidden by default */
+          position: fixed; /* Stay in place */
+          z-index: 1; /* Sit on top */
+          left: 0;
+          top: 0;
+          width: 100%; /* Full width */
+          height: 100%; /* Full height */
+          overflow: auto; /* Enable scroll if needed */
+          background-color: rgb(0,0,0); /* Fallback color */
+          background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+      }
+
+      .modal-content {
+          background-color: white;
+          margin: 15% auto; /* 15% from the top and centered */
+          padding: 20px;
+          border: 1px solid #888;
+          width: 80%; /* Could be more or less, depending on screen size */
+          -webkit-animation-name: animatetop;
+          -webkit-animation-duration: 0.4s;
+          animation-name: animatetop;
+          animation-duration: 0.4s
+      }
+
+      @-webkit-keyframes animatetop {
+          from {top: -300px; opacity: 0}
+          to {top: 0; opacity: 1}
+      }
+
+      @keyframes animatetop {
+          from {top: -300px; opacity: 0}
+          to {top: 0; opacity: 1}
+      }
+
+      /* The Close Button */
+      .close {
+          color: #aaa;
+          float: right;
+          font-size: 28px;
+      }
+
+      .close:hover,
+      .close:focus {
+          color: black;
+          text-decoration: none;
+          cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body class="flexwrap-row">
+    <div id="main_container" class="flexwrap-col">
+      <div id="text_container" class="flexwrap-row">
+        <h1 class="fonts">Modal Textbook Website</h1>
+
+        <button id="buyBtn">Buy</button>
+        <div id="buyModal" class="modal">
+          <div class="modal-content">
+            <span id="buySpan" class="close">x</span>
+            <p>Textbook Details:</p>
+            <form>
+              <p>Name:</p>
+              <input type="text" name="textbook_Name"><br>
+              <p>IBSN:</p>
+              <input type="text" name="textbook_isbn"><br>
+              <p>Date Published:</p>
+              <input type="text" name="textbook_pub"><br>
+              <p>Author:</p>
+              <input type="text" name="textbook_author"><br><br>
+              <button>Submit</button>
+            </form>
+          </div>
+        </div>
+
+        <button id="sellBtn">Sell</button>
+        <div id="sellModal" class="modal">
+          <div class="modal-content">
+            <span id="sellSpan" class="close">x</span>
+            <!-- might need to add a check for if logged in already -->
+            <p>You need to Login!</p>
+            <form>
+              <p>Email:</p>
+              <input type="text" name="email"><br>
+              <p>Password:</p>
+              <input type="password" name="user_pass"><br><br>
+              <button>Submit</button>
+              <button>Register</button>
+            </form>
+          </div>
+        </div>
+
+        <script>
+        var buyModal = document.getElementById('buyModal');
+        var sellModal = document.getElementById('sellModal');
+
+        // Get the button that opens the modal
+        var buyBtn = document.getElementById("buyBtn");
+        var sellBtn = document.getElementById("sellBtn");
+
+        // Get the <span> element that closes the modal
+        var buySpan = document.getElementById("buySpan");
+        var sellSpan = document.getElementById("sellSpan");
+
+        // When the user clicks on the button, open the modal
+        buyBtn.onclick = function() {
+          buyModal.style.display = "block";
+        }
+
+        sellBtn.onclick = function() {
+          sellModal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        buySpan.onclick = function() {
+            buyModal.style.display = "none";
+        }
+
+        sellSpan.onclick = function() {
+            sellModal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == buyModal) {
+              buyModal.style.display = "none";
+          }
+          if (event.target == sellModal) {
+              sellModal.style.display = "none";
+          }
+        }
+        </script>
+
+      </div>
+      <h4 class="fonts">Buying/Selling Textbooks just got easier!</h4>
+    </div>
+  </body>
+</html>
